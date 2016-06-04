@@ -1,0 +1,198 @@
+<html>
+<head>
+    <title>Realtime Markdown Viewer</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
+    <link href="css/style.css" rel="stylesheet">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#username").hide();
+            $("#register-title").hide();
+            $('#login-submit').click(function(e){
+                if($(this).attr('value') === 'Register') {
+                    $.post("http://localhost:8000/register",{
+                        user_name : $("#username").val(), 
+                        user_email : $("#useremail").val(), 
+                        user_password : $("#password").val() 
+                    },function(data){
+                        if(data.error) {
+                            alert(data.message);
+                        } else {
+                            $("#username").hide();
+                            $("#login-submit").prop('value','Log in');
+                        }
+                    });
+                } else {
+                    $.post("http://localhost:8000/login",{ 
+                        user_email : $("#useremail").val(), 
+                        user_password : $("#password").val() 
+                    },function(data){
+                        if(!data.error) {
+                            // window.location.href = "/";
+                            $("#login").text('Log Out');
+                            $('#modal1').closeModal();
+                            $('#login').removeClass("modal-trigger");
+                            $('#login').attr("href", "")
+                        } else {
+                            alert(data.message);
+                        }
+                    });
+                }
+            });
+            $("#login").click(function(event){
+                $("#testing").text('Gets here');
+                if($("#login").text() === 'Log Out') {
+                    event.preventDefault();
+                    $("#testing").text('Gets here also');
+                    $.get("http://localhost:8000/logout");
+                    window.location.href = "/";
+                }
+            });
+            $("#reg").click(function(event){
+                $("#username").show('slow');
+                $("#login-submit").prop('value','Register');
+                $("#login-title").hide();
+                $("#register-title").show('fast');
+                event.preventDefault();
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.modal-trigger').leanModal();
+        });
+    </script>
+</head>
+
+<body class="container-fluid">
+
+	<!-- Dropdown Structure -->
+	<ul id="dropdown1" class="dropdown-content">
+	    <li><a href="t-channel-go">T-Channel</a></li>
+	    <li><a href="luma-gl">LumaGL</a></li>
+	    <li><a href="pyechonest">Pyechonest</a></li>
+	</ul>
+	<nav>
+	    <div class="nav-wrapper">
+	        <ul class="right hide-on-med-and-down">
+                <li><a id="testing" href="#">Testing</a></li>
+	            <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Active Docs<i class="material-icons right">arrow_drop_down</i></a></li>
+                <li><a class="modal-trigger" id="login" href="#modal1">Log In</a></li>
+	        </ul>
+	    </div>
+	</nav>
+
+	<!-- Markdown editor -->
+    <section class="row">
+        <textarea class="col-md-6 full-height" id="pad">
+# yamde
+
+### yet another markdown editor
+
+yamde is a fully-featured realtime markdown editor
+
+Here is a sample list!
+
+* one
+* two
+* three
+
+And here's some code!
+
+```python
+def Fibo(n):
+    if n == 0: 
+        return 0
+    elif n == 1: 
+        return 1
+    else: 
+        return F(n-1) + F(n-2)
+```
+
+But wait there's more! We can even use gifs! How does that make you feel, Taylor?
+
+-![alt text](https://media.giphy.com/media/12JUtWowTQpM2I/giphy.gif "Taylor is excited about using GIFs in our markdown documents")
+
+        </textarea>
+        <div class="col-md-6 full-height" id="markdown"></div>
+    </section>
+
+    <!-- Login Form Modal -->
+    <div id="modal1" class="modal" style="height: 53%;">
+        <div class="modal-content" id="login-modal" style="height:100%">
+            <h4 id="login-title">Log In</h4>
+            <h4 id="register-title">Register</h4>
+            <input type="text" id="username" placeholder="Name" class="form-control"><br>
+            <input type="text" id="useremail" placeholder="Email" class="form-control"><br>
+            <input type="password" id="password" placeholder="Password" class="form-control"><br>
+            <input type="button" id="login-submit" value="Log In" class="btn btn-primary">&nbsp;<a href="" id="reg">Sign up here </a>
+        </div>
+        <div class="modal-footer" style="height: 0px">
+        </div>
+    </div>
+
+    <!-- Fixed Action Button -->
+    <div class="fixed-action-btn modal-trigger" style="bottom: 45px; right: 24px;">
+    	<a class="btn-floating btn-large red modal-trigger" href="#new_file_modal">
+      	<i class="large material-icons">add</i>
+    	</a>
+  	</div>
+
+    <script src="https://cdn.rawgit.com/showdownjs/showdown/1.0.2/dist/showdown.min.js"></script>
+    <script src="/channel/bcsocket.js"></script>
+    <script src="/share/share.uncompressed.js"></script>
+    <script src="/share/textarea.js"></script>
+    <script src="js/script.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

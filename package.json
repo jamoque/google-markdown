@@ -12,8 +12,14 @@
   "dependencies": {
     "ejs": "^2.4.1",
     "express": "^4.13.4",
-    "redis": "^0.10.3",
-    "share": "^0.6.3"
+    "express-session": "^1.11.3",
+    "redis": "^0.12.1",
+    "share": "^0.6.3",
+    "async": "^1.2.1",
+    "body-parser": "^1.13.0",
+    "connect-redis": "^2.3.0",
+    "cookie-parser": "^1.3.5",
+    "mysql": "^2.7.0"
   },
   "engines": {
     "node": "0.10.x",
