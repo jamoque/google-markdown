@@ -40,6 +40,8 @@ node_modules/*
 node_modules/
 node_modules/redis/*
 
+redis-3.2.0*
+
 .DS_Store
 *.DS_Store
 */.DS_Store

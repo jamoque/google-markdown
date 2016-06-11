@@ -2,7 +2,15 @@
 
 html, body, section, .full-height {
     height: 100%;
-} 
+}
+
+.lean-overlay {
+    z-index: -1;
+}
+
+#materialize-lean-overlay-1 {
+    z-index: 1002;
+}
 
 #pad {
     font-family: Menlo,Monaco,Consolas,"Courier New",monospace;

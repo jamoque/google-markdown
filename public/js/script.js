@@ -4,6 +4,7 @@ window.onload = function() {
     var converter = new showdown.Converter();
     var pad = document.getElementById('pad');
     var markdownArea = document.getElementById('markdown'); 
+    var title = document.getElementById('page-title'); 
 
     // make the tab act like a tab
     pad.addEventListener('keydown',function(e) {
@@ -50,7 +51,7 @@ window.onload = function() {
         if(didChangeOccur()){
             convertTextAreaToMarkdown();
         }
-    }, 1000);
+    }, 250);
 
     // convert textarea on input change
     pad.addEventListener('input', convertTextAreaToMarkdown);
@@ -58,7 +59,8 @@ window.onload = function() {
     // ignore if on home page
     if(document.location.pathname.length > 1){
         // implement share js
-        var documentName = document.location.pathname.substring(1);
+        var documentName = document.location.pathname.substring(6);
+        title.innerHTML = documentName
         sharejs.open(documentName, 'text', function(error, doc) {
             doc.attach_textarea(pad);
             convertTextAreaToMarkdown();

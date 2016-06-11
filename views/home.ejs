@@ -33,7 +33,7 @@
                         if(!data.error) {
                             // window.location.href = "/";
                             $("#login").text('Log Out');
-                            $('#modal1').closeModal();
+                            $('#login-modal').closeModal();
                             $('#login').removeClass("modal-trigger");
                             $('#login').attr("href", "")
                         } else {
@@ -62,7 +62,12 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function() {
-            $('.modal-trigger').leanModal();
+            $('.modal-trigger').leanModal({
+                dismissible: true,
+                opacity: .5,
+                in_duration: 300,
+                out_duration: 200
+            });
         });
     </script>
 </head>
@@ -80,7 +85,7 @@
 	        <ul class="right hide-on-med-and-down">
                 <li><a id="testing" href="#">Testing</a></li>
 	            <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Active Docs<i class="material-icons right">arrow_drop_down</i></a></li>
-                <li><a class="modal-trigger" id="login" href="#modal1">Log In</a></li>
+                <li><a class="modal-trigger" id="login" href="#login-modal">Log In</a></li>
 	        </ul>
 	    </div>
 	</nav>
@@ -121,7 +126,7 @@ But wait there's more! We can even use gifs! How does that make you feel, Taylor
     </section>
 
     <!-- Login Form Modal -->
-    <div id="modal1" class="modal" style="height: 53%;">
+    <div id="login-modal" class="modal" style="height: 53%;">
         <div class="modal-content" id="login-modal" style="height:100%">
             <h4 id="login-title">Log In</h4>
             <h4 id="register-title">Register</h4>
@@ -134,9 +139,20 @@ But wait there's more! We can even use gifs! How does that make you feel, Taylor
         </div>
     </div>
 
+    <!-- New Document Modal -->
+    <div id="new_doc_modal" class="modal" style="height: 33%;">
+        <div class="modal-content" id="login-modal" style="height:100%">
+            <h4>New Document</h4>
+            <input type="text" id="new_doc_name" placeholder="Document Name" class="form-control"><br>
+            <input type="button" id="new-doc-submit" value="Create" class="btn btn-primary">
+        </div>
+        <div class="modal-footer" style="height: 0px">
+        </div>
+    </div>
+
     <!-- Fixed Action Button -->
-    <div class="fixed-action-btn modal-trigger" style="bottom: 45px; right: 24px;">
-    	<a class="btn-floating btn-large red modal-trigger" href="#new_file_modal">
+    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+    	<a class="btn-floating btn-large red modal-trigger" href="#new_doc_modal">
       	<i class="large material-icons">add</i>
     	</a>
   	</div>

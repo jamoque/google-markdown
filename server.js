@@ -12,9 +12,11 @@ var bodyParser      =     require('body-parser');
 var cookieParser    =     require('cookie-parser');
 var path            =     require("path");
 var async           =     require("async");
+var uuid 			= 	  require('node-uuid');
 var client          =     redis.createClient();
 var app             =     express();
 var router          =     express.Router();
+var doc_router 		= 	  express.Router({mergeParams: true});
 
 var pool    =   mysql.createPool({
     connectionLimit : 100,
@@ -59,13 +61,13 @@ function handle_database(req,type,callback) {
 	      	var SQLquery;
 	      	switch(type) {
 	       	case "login" :
-	        	SQLquery = "SELECT * from user_login WHERE user_email='"+req.body.user_email+"' AND `user_password`='"+req.body.user_password+"'";
+	        	SQLquery = "SELECT * from users WHERE user_email='"+req.body.user_email+"' AND `user_password`='"+req.body.user_password+"'";
 	        	break;
 	        case "checkEmail" :
-	            SQLquery = "SELECT * from user_login WHERE user_email='"+req.body.user_email+"'";
+	            SQLquery = "SELECT * from users WHERE user_email='"+req.body.user_email+"'";
 	            break;
 	        case "register" :
-	        	SQLquery = "INSERT into user_login(user_email,user_password,user_name) VALUES ('"+req.body.user_email+"','"+req.body.user_password+"','"+req.body.user_name+"')";
+	        	SQLquery = "INSERT into users(user_id,user_email,user_password,user_name) VALUES ('"+uuid.v1()+"','"+req.body.user_email+"','"+req.body.user_password+"','"+req.body.user_name+"')";
 	        	break;
 	        case "addStatus" :
 	        	SQLquery = "INSERT into user_status(user_id,user_status) VALUES ("+req.session.key["user_id"]+",'"+req.body.status+"')";
@@ -157,10 +159,11 @@ router.get('/logout',function(req,res){
     }
 });
 
-router.get('/docs/(:id)', function(req, res) {
+doc_router.get('/(:id)', function(req, res) {
   	res.render('pad');
 });
 
+router.use('/docs', doc_router);
 app.use('/',router);
 
 // get sharejs dependencies
